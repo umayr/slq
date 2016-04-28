@@ -1,4 +1,4 @@
-## `SLQ`
+## `SLQ` [![Build Status](https://travis-ci.org/umayr/slq.svg?branch=master)](https://travis-ci.org/umayr/slq)
 >Perform multi-level logical operations as a query over javascript object and/or array.
 
 ### Install
