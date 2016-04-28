@@ -1,6 +1,6 @@
 {
   "name": "slq",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Perform simple logical queries on javascript object and arrays",
   "main": "lib/index.js",
   "scripts": {
@@ -16,11 +16,11 @@
   },
   "keywords": [
     "simple logical query",
-    "and operation",
-    "or operation",
-    "nor operation",
-    "nand operation",
-    "string queries"
+    "and operator",
+    "or operator",
+    "not operator",
+    "string queries on object",
+    "string queries on arrays"
   ],
   "author": "Umayr Shahid <umayrr@hotmail.co.uk>",
   "license": "MIT",
