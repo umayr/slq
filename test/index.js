@@ -48,5 +48,17 @@ describe('slq', () => {
     it('should be true when `baz OR (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))`', () => {
       expect(src.query('baz OR (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))')).to.be.true;
     });
+
+    it('should throw error if invalid operator is provided', () => {
+      expect(src.query.bind(src, 'baz LOL foo')).to.throw(Error);
+      expect(src.query.bind(src, 'baz LOL foo')).to.throw(/slq: invalid operator/);
+    });
+
+    it('should throw error if no query is provided', () => {
+      expect(src.query.bind(src, '')).to.throw(Error);
+      expect(src.query.bind(src, '')).to.throw(/slq: query should not be empty/);
+      expect(src.query.bind(src)).to.throw(Error);
+      expect(src.query.bind(src)).to.throw(/slq: query should not be empty/);
+    });
   });
 });
