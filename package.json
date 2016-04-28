@@ -1,0 +1,39 @@
+{
+  "name": "slq",
+  "version": "0.1.0",
+  "description": "Perform simple logical queries on javascript object and arrays",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint:fix": "npm run lint -- --fix",
+    "lint": "eslint --config .eslintrc lib/ || true",
+    "pretest": "npm run lint",
+    "test": "mocha --reporter spec",
+    "debug": "mocha --reporter spec --inline-diffs --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umayr/slq.git"
+  },
+  "keywords": [
+    "simple logical query",
+    "and operation",
+    "or operation",
+    "nor operation",
+    "nand operation",
+    "string queries"
+  ],
+  "author": "Umayr Shahid <umayrr@hotmail.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/umayr/slq/issues"
+  },
+  "homepage": "https://github.com/umayr/slq#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^2.8.0",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "safe-eval": "^0.2.0"
+  }
+}
