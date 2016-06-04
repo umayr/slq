@@ -142,6 +142,21 @@ describe('slq', () => {
         expect(src.query('(!(!(unicorn))) || !(meh && unicorn)')).to.be.true;
       });
     });
+
+    describe('"KEY" found in actual term', () => {
+
+      let src = new Slq(['ViewPMOReports', 'ANDY', 'NOTE']);
+
+      it('should be true when array given `(ViewPMOReports AND ANDY) OR NOTE`', () => {
+        expect(src.query('(ViewPMOReports AND ANDY) OR NOTE')).to.be.true;
+      });
+      
+      src = new Slq({ViewPMOReports: true, ANDY: true, NOTE: true});
+
+      it('should be true when object given `(ViewPMOReports AND ANDY) OR NOTE`', () => {
+        expect(src.query('(ViewPMOReports AND ANDY) OR NOTE')).to.be.true;
+      });
+    });
   });
 
 });
