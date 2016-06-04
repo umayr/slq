@@ -111,63 +111,6 @@ describe('slq', () => {
       });
     });
 
-    describe('#object', () => {
-
-      let src = new Slq({
-        foo: true,
-        bar: false,
-        baz: false
-      });
-
-      it('should be false when `foo AND bar`', () => {
-        expect(src.query('foo AND bar')).to.be.false;
-      });
-
-      it('should be true when `foo AND NOT bar`', () => {
-        expect(src.query('foo AND NOT bar')).to.be.true;
-      });
-
-      it('should be false when `NOT (foo AND NOT bar)`', () => {
-        expect(src.query('NOT (foo AND NOT bar)')).to.be.false;
-      });
-
-      it('should be false when `(foo AND bar) AND baz`', () => {
-        expect(src.query('(foo AND bar) AND baz')).to.be.false;
-      });
-
-      it('should be false when `NOT(NOT((foo AND bar) AND baz))`', () => {
-        expect(src.query('NOT(NOT((foo AND bar) AND baz))')).to.be.false;
-      });
-
-      it('should be false when `foo AND (bar AND baz)`', () => {
-        expect(src.query('foo AND (bar AND baz)')).to.be.false;
-      });
-
-      it('should be false when `foo AND (foo AND (bar AND baz))`', () => {
-        expect(src.query('foo AND (foo AND (bar AND baz))')).to.be.false;
-      });
-
-      it('should be true when `foo AND (foo AND foo)`', () => {
-        expect(src.query('foo AND (foo AND foo)')).to.be.true;
-      });
-
-      it('should be true when `foo AND (foo OR bar)`', () => {
-        expect(src.query('foo AND (foo OR bar)')).to.be.true;
-      });
-
-      it('should be true when `foo OR (foo AND bar)`', () => {
-        expect(src.query('foo OR (foo AND bar)')).to.be.true;
-      });
-
-      it('should be true when `baz OR (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))`', () => {
-        expect(src.query('baz OR (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))')).to.be.true;
-      });
-
-      it('should be true when `NOT baz AND (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))`', () => {
-        expect(src.query('NOT baz AND (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))')).to.be.true;
-      });
-    });
-
     describe('#array', () => {
       let src = new Slq(['foo', 'bar', 'unicorn']);
 
@@ -200,12 +143,18 @@ describe('slq', () => {
       });
     });
 
-    describe('"OR" found in term', () => {
+    describe('"KEY" found in actual term', () => {
 
-      let src = new Slq(['ViewPMOReports']);
+      let src = new Slq(['ViewPMOReports', 'ANDY', 'NOTE']);
 
-      it('should be true `ViewPMOReports`', () => {
-        expect(src.query('ViewPMOReports')).to.be.true;
+      it('should be true when array given `(ViewPMOReports AND ANDY) OR NOTE`', () => {
+        expect(src.query('(ViewPMOReports AND ANDY) OR NOTE')).to.be.true;
+      });
+      
+      src = new Slq({ViewPMOReports: true, ANDY: true, NOTE: true});
+
+      it('should be true when object given `(ViewPMOReports AND ANDY) OR NOTE`', () => {
+        expect(src.query('(ViewPMOReports AND ANDY) OR NOTE')).to.be.true;
       });
     });
   });
