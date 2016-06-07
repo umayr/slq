@@ -59,7 +59,9 @@ describe('slq', () => {
       let src = new Slq({
         foo: true,
         bar: false,
-        baz: false
+        baz: false,
+        unicORn: true,
+        fOR: false
       });
 
       it('should be false when `foo AND bar`', () => {
@@ -109,10 +111,27 @@ describe('slq', () => {
       it('should be true when `NOT baz AND (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))`', () => {
         expect(src.query('NOT baz AND (foo AND (foo OR (foo AND (bar OR (foo AND (baz OR foo))))))')).to.be.true;
       });
+
+      it('should be false when `fOR AND NOT bar`', () => {
+        expect(src.query('fOR AND NOT bar')).to.be.false;
+      });
+
+      it('should be true when `NOT (NOT unicORn AND NOT bar)`', () => {
+        expect(src.query('NOT (NOT unicORn AND NOT bar)')).to.be.true;
+      });
+
+      it('should be true when `(unicORn AND unicORn) AND unicORn`', () => {
+        expect(src.query('(unicORn AND unicORn) AND unicORn')).to.be.true;
+      });
+
+      it('should be true when `NOT(NOT(NOT((unicORn AND bar) AND baz)))`', () => {
+        expect(src.query('NOT(NOT(NOT((unicORn AND bar) AND baz)))')).to.be.true;
+      });
+
     });
 
     describe('#array', () => {
-      let src = new Slq(['foo', 'bar', 'unicorn']);
+      let src = new Slq(['foo', 'bar', 'unicorn', 'fOR', 'fORoo', 'bORar', 'unicORn']);
 
       it('should be true when `foo AND bar AND unicorn`', () => {
         expect(src.query('foo AND bar AND unicorn')).to.be.true;
@@ -141,7 +160,32 @@ describe('slq', () => {
       it('should be true when `(!(!(unicorn))) || !(meh && unicorn)` with actual operators', () => {
         expect(src.query('(!(!(unicorn))) || !(meh && unicorn)')).to.be.true;
       });
-    });
-  });
 
+      it('should be true when `fOR AND bar AND unicORn`', () => {
+        expect(src.query('fOR AND bar AND unicORn')).to.be.true;
+      });
+
+      it('should be true when `fORoo         AND    bORar                    AND unicORn`', () => {
+        expect(src.query('fORoo         AND    bORar                    AND unicORn')).to.be.true;
+      });
+
+      it('should be true when `NOT(poo OR meh AND lol)`', () => {
+        expect(src.query('NOT(poo OR meh AND lol)')).to.be.true;
+      });
+
+      it('should be true when `(NOT(NOT(unicORn))) OR NOT(meh AND unicORn)`', () => {
+        expect(src.query('(NOT(NOT(unicORn))) OR NOT(meh AND unicORn)')).to.be.true;
+      });
+
+      it('should be true when `(!(!(unicORn))) || !(meh && unicORn)`', () => {
+        expect(src.query('(!(!(unicORn))) || !(meh && unicORn)')).to.be.true;
+      });
+
+      it('should be true when `(!(!(unicORn)))OR!(meh && unicORn)`', () => {
+        expect(src.query('(!(!(unicORn)))OR!(meh && unicORn)')).to.be.true;
+      });
+    });
+
+  });
+  
 });
